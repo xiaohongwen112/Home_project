@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/goods.css" />
+	</head>
+
+	<body>
+		<script src="../js/tools.js" type="text/javascript" charset="utf-8"></script>
+		<div class="header"></div>
+		<div id="content">
+			<div class="top_white"></div>
+			<div id="content">
+				<div id="main_con">
+					<!--轮播图部分-->
+					<div id="con_left">
+						<div id="proto_img">
+							<div id="move_img"></div>
+						</div>
+						<div id="big_img">
+							<div id="big_big"></div>
+						</div>
+						<!--触碰变图-->
+						<div id="show_many_img">
+							<ul>
+								<li><img src="../img/goods1.jpg"/></li>
+								<li><img src="../img/good2.jpg"/></li>
+								<li><img src="../img/goods3.jpg"/></li>
+								<li><img src="../img/goods4.jpg"/></li>
+								<li><img src="../img/goods5.jpg"/></li>
+								<li><img src="../img/goods6.jpg"/></li>
+								<li><img src="../img/goods7.jpg"/></li>
+								<li><img src="../img/goods8.jpg"/></li>
+								<li><img src="../img/goods9.jpg"/></li>
+							</ul>
+						</div>
+
+				</div>
+					<div id="con_right">
+
+					</div>
+				</div>
+			</div>
+
+		
+		<div class="footer"></div>
+	</body>
+	<script type="text/javascript">
+		//ajax引用头尾部
+		promiseAjax("../include/header.html").then(function(data) {
+
+			$(".header")[0].innerHTML = data;
+
+		}, function() {
+			console.log("拉闸");
+		});
+		promiseAjax("../include/footer.html").then(function(data) {
+			$(".footer")[0].innerHTML = data;
+
+		}, function() {
+			console.log("Laza");
+		});
+		//放大镜功能
+		$("#proto_img").onmouseenter = function() {
+			show($("#move_img"));
+			show($("#big_img"));
+			var mHeight = $("#move_img").offsetHeight,
+				mWidth = $("#move_img").offsetWidth,
+				bHeight = $("#proto_img").offsetHeight,
+				bWidth = $("#proto_img").offsetWidth,
+				bt=$("#proto_img").offsetLeft,
+				nH = $("#move_img").offsetTop;
+			document.onmousemove = function(e) {
+				e = e || event;
+				var tt = e.pageY,
+					ll = e.pageX,
+					_top = tt - 100 - mHeight,
+					_left = ll +80 - mWidth;
+				if(_top < 0)
+					_top = 0;
+				else if(_top > bHeight - mHeight)
+					_top = bHeight - mHeight;
+				if(_left < 0)
+					_left = 0;
+				else if(_left > bWidth - mWidth)
+					_left = bWidth - mWidth;
+				css($("#move_img"), {
+					top: _top + "px",
+					left: _left + "px"
+				});
+				css($("#big_big"), {
+					top: _top * -1.3 + "px",
+					left: _left * -1.3 + "px"
+				});
+			}
+		}
+		$("#proto_img").onmouseleave = function() {
+			document.onmousemove = null;
+			hide($("#move_img"));
+			hide($("#big_img"));
+		}
+		
+		//点击图片变换
+		var lis=$("img",$("#show_many_img")),
+			len=lis.length;
+			//鼠标进入获取索引值
+			for(var i=0; i<len;i++){
+			$("li")[i].onmouseenter=function(e){
+				e=e||event;
+				src=e.srcElement||e.target;
+					var that=this;
+					console.log(that);
+					ajax({
+						type: "get",
+						url: "../data/all_img.json",
+						dataType: "json",
+						success: function(data) {
+							if(data.status == 1) {
+								for(let i = 0; i < data.all_img.length; i++) {
+									console.log(this);
+									if(this==src){
+									var srcs=data.all_img[i].src;
+									console.log(that);
+									}
+								}
+							}
+						}
+					});
+				}
+			}
+			
+			//时间委派，点击用
+//			$("#show_many_img").onclick=function(e){
+//				e=e||event;
+//				var src=e.srcElement||e.target;
+//				if(src.nodeName==="IMG"){
+//					for(var i=0;i<len;i++){
+//						if(src===lis[i])
+//						console.log("点击"+i);
+//					}
+//				}
+//				
+//			}
+//			
+			
+	</script>
+
+</html>

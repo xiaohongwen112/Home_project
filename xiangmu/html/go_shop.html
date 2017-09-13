@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/go_shop.css" />
+	</head>
+
+	<body>
+		<script src="../js/tools.js" type="text/javascript" charset="utf-8"></script>
+		<div class="header"></div>
+		<div id="content">
+			<div class="top_white"></div>
+			<div class="main_con">
+				<!-- 左边-->
+				<div class="con_left">
+					<!-- 第一列-->
+					<div id="con_left_topList">
+						<h2>分类:</h2>
+						<ul>
+							<li>
+								<a href="#"><span>臻选蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>巧克力蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>鲜花蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>裸蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>奶油水果蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>慕斯蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>拼接蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>乳酪蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>冰淇淋蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>儿童蛋糕</span></a>
+							</li>
+							<li>
+								<a href="#"><span>蛋糕伴侣</span></a>
+							</li>
+							<li>
+								<a href="#"><span>VIP购卡</span></a>
+							</li>
+						</ul>
+					</div>
+					<!-- 第二列-->
+					<div id="con_left_second">
+						<!-- 第二列列表-->
+						<div id="con_left_secondList">
+							<div id="second_one">
+								<a href="javascript:void(0);" class="default "><em>默认</em></a>
+								<a href="javascript:void(0);" class="price_sort"><em style="margin-left: 6px;">价格<span>&nbsp;&nbsp;&nbsp;</span></em></a>
+								<a href="javascript:void(0);" class="sell-sort "><em style="margin-left: 4px;">销量<span>&nbsp;&nbsp;&nbsp;</span></em></a>
+								<label for="">排序：</label>
+								<select name="orderBy" id="" class="action-orderby">
+									<option value="" selected="">默认</option>
+									<option value="price_high">按价格 从高到低</option>
+									<option value="price_low">按价格 从低到高</option>
+									<option value="week_count">访问周次数</option>
+									<option value="total_count">总访问次数</option>
+									<option value="buy_week_count">周购买次数</option>
+									<option value="buy_all_count">总购买次数</option>
+								</select>
+							</div>
+							<div id="second_two">
+								<a href="javascript:void(0);" class="big"><i>&nbsp;&nbsp;&nbsp;&nbsp;</i>大图</a>
+								<a href="javascript:void(0);" class="list"><em>&nbsp;&nbsp;&nbsp;&nbsp;</em>列表</a>
+							</div>
+							<div id="second_three">
+								<span class="num"><span>1</span>/<span>4</span></span>
+								<span class="arrow"><a href="javascript:void(0);"><i class="left"></i></a>
+									  <a href="javascript:void(0);"><i class="right"></i></a>
+							</span>
+							</div>
+						</div>
+						<!-- 第二列商品展示-->
+						<div id="con_left_sceond_show">
+
+						</div>
+
+						<div class="pageview">
+							<span class="over"><i >‹</i></span>
+							<a href="get_goods" class="flip active">1</a>
+							<a href="get_goods" class="flip">2</a>
+							<a href="get_goods" class="flip">3</a>
+							<a href="get_goods" class="flip">4</a>
+							<a href="get_goods" class="flip next"><i>›</i></a>
+						</div>
+					</div>
+				</div>
+				<!-- 右边-->
+				<div class="con_right"></div>
+
+			</div>
+
+		</div>
+		<div class="footer"></div>
+	</body>
+	<script type="text/javascript">
+		promiseAjax("../include/header.html").then(function(data) {
+
+			$(".header")[0].innerHTML = data;
+
+		}, function() {
+			console.log("拉闸");
+		});
+		promiseAjax("../include/footer.html").then(function(data) {
+			$(".footer")[0].innerHTML = data;
+
+		}, function() {
+			console.log("Laza");
+		});
+
+		/*一种三种方法想页面传送数据*/
+		//用json接收数据（第一种方法）
+//		var options = {}
+		ajax({
+			type: "get",
+			url: "../data/goods.json",
+			dataType: "json",
+			success: function(data) {
+				if(data.status == 1) {
+					for(var i = 0; i < data.all.length; i++) {
+//						options.first_word = data.all[i].first_word;
+//						options.all = data.all[i];
+
+						var _dl = document.createElement("dl");
+						_dl.className = "all_goods";
+						var _dt = document.createElement("dt");
+						_dl.appendChild(_dt);
+						var _goods_img = document.createElement("div");
+						_goods_img.className = "goods_img";
+						_dt.appendChild(_goods_img);
+						var _a = document.createElement("a");
+						//向dt中添加a里面的img
+						_a.innerHTML = "<img src='" + data.all[i].src + "'>";
+						css(_a, {
+							"line-height": 198 + "px"
+						});
+						_goods_img.appendChild(_a);
+						var _dd = document.createElement("dd");
+						//加入dd
+						_dl.appendChild(_dd);
+						var _goods_word = document.createElement("div");
+						_goods_word.className = "goods_word";
+						_dd.appendChild(_goods_word);
+						var _dd_a = document.createElement("a");
+						_dd_a.className = "maxlinkname";
+						_goods_word.appendChild(_dd_a);
+						_dd_a.innerHTML = data.all[i].first_word;
+						var _dd_span = document.createElement("span");
+						css(_dd_span, {
+							color: "#dc4f45",
+							font: "normal 16px microsoft yahei",
+							display: " block"
+						});
+						_dd_span.innerHTML = data.all[i].price_desc;
+						_dd.appendChild(_dd_span);
+						//				this.container.appendChild(_dl);		
+						var _b = document.createElement("b");
+						css(_b, {
+							"margin-top": 27 + "px",
+							"margin-bottom": 15 + "px",
+							display: "block",
+							float: "left"
+						});
+						_dd.appendChild(_b);
+						//往b里加入字符串标签
+						_b.innerHTML = "<a href='avascript:void(0);' class='minus'/>-</a><input type='text' min='1' max='10995' size='2' name='goods[num]' class='input_num' value='1'><a href='javascript:void(0);' class='add'>+</a>";
+						var _a_shop_cart = document.createElement("a");
+						_a_shop_cart.className = "shop_cart";
+						_a_shop_cart.innerHTML = "<span><span>加入购物车</span></span>"
+						_dd.appendChild(_a_shop_cart);
+
+						$("#con_left_sceond_show").appendChild(_dl);
+
+					}
+				}
+			}
+		});
+
+		//面向对象创建商品，options为传入的数据对象（第二种方法）
+		//			 Options{
+		//				imgs:[
+		//					{src:"asd.jpg",
+		//					 first_word:"好吃的蛋糕",
+		//					 price_desc:"￥300.00"
+		//				
+		//			}
+
+		//		function List(options){
+		//			options=options||{};
+		//			this.container=options.container;
+		//			this.imgBoxes=[];
+		//			this.all=options.all;
+		//			this.first_word=options.first_word;
+		//			this.price_desc=options.price_desc;
+		//			this.init();
+		//		}
+		//		List.prototype={
+		//			constructor:List,
+		//			init:function(){
+		//				//将传入的对象遍历
+		//				for(var i=0; i<this.all.length;i++){
+		//					
+		//				var imgs=this.all[i],
+		//					first_words=this.all[i],
+		//					price_descs=this.all[i];
+		//创建dl标签
+		//				var _dl=document.createElement("dl");
+		//				_dl.className="all_goods";
+		//				var _dt=document.createElement("dt");
+		//				_dl.appendChild(_dt);
+		//				var _goods_img=document.createElement("div");
+		//				_goods_img.className="goods_img";
+		//				_dt.appendChild(_goods_img);
+		//				var _a=document.createElement("a");
+		//				//向dt中添加a里面的img
+		//				_a.innerHTML="<img src='"+imgs.src+"'>";
+		//				css(_a,{
+		//					"line-height": 198+"px"
+		//				});
+		//				_goods_img.appendChild(_a);
+		//				var _dd=document.createElement("dd");	
+		//				//加入dd
+		//				_dl.appendChild(_dd);
+		//				var _goods_word=document.createElement("div");
+		//				_goods_word.className="goods_word";
+		//				_dd.appendChild(_goods_word);
+		//				var _dd_a=document.createElement("a");
+		//				_dd_a.className="maxlinkname";
+		//				_goods_word.appendChild(_dd_a);
+		//				_dd_a.innerHTML=first_words.first_word;
+		//				var _dd_span=document.createElement("span");
+		//				css(_dd_span,{
+		//					color: "#dc4f45",
+		//	 				 font: "normal 16px microsoft yahei",
+		//					 display:" block"
+		//				});
+		//				_dd_span.innerHTML=price_descs.price_desc;
+		//				_dd.appendChild(_dd_span);
+		////				this.container.appendChild(_dl);		
+		//				var _b=document.createElement("b");
+		//				css(_b,{
+		//					"margin-top": 27+"px",
+		//				   	"margin-bottom": 15+"px",
+		//				    display: "block",
+		//				    float: "left"
+		//				});
+		//				_dd.appendChild(_b);
+		//				//往b里加入字符串标签
+		//				_b.innerHTML="<a href='avascript:void(0);' class='minus'/>-</a><input type='text' min='1' max='10995' size='2' name='goods[num]' class='input_num' value='1'><a href='javascript:void(0);' class='add'>+</a>";
+		//				var _a_shop_cart=document.createElement("a");
+		//				_a_shop_cart.className="shop_cart";
+		//				_a_shop_cart.innerHTML="<span><span>加入购物车</span></span>"
+		//				_dd.appendChild(_a_shop_cart);
+		//				
+		//				$("#con_left_sceond_show").appendChild(_dl);		
+		//				
+		//			}
+		//			}
+		//			
+		//		}
+		//		var wen=new List({
+		//			all:[
+		//			{src:"../img/c7a7883bcdc43d54f08449ecdadbce91.jpg",first_word:"桃李春风",price_desc:"￥299.00"},
+		//			{src:"../img/ff22def1f569b0710b45ed4d3d3b3ed4.jpg",first_word:"摩天轮 Ferris Wheel",price_desc:"￥299.00"},
+		//			{src:"../img/8a66c362fb076d21f04598b0e0e1bc18.jpg",first_word:"太子 Prince",price_desc:"￥299.00"},
+		//			{src:"../img/9d4e57d1923857f131497d03bff81c17.jpg",first_word:"小萌哒羊 Little ",price_desc:"￥299.00"},
+		//			{src:"../img/2e7cd8a7bc0dd816dd94332c130c2806.jpg",first_word:"牧小牛 Pastoral calf",price_desc:"￥299.00"},
+		//			{src:"../img/a0615097c150ed90bd99f5572f849a79.jpg",first_word:"请叫我奔放的小野马 Little Wild Horse",price_desc:"￥299.00"},
+		//			{src:"../img/71c94941c1c94e3964e400afddedf43e.jpg",first_word:"吉吉 GIGI",price_desc:"￥299.00"},
+		//			{src:"../img/c7a7883bcdc43d54f08449ecdadbce91.jpg",first_word:"喂！萝卜 Hey！Carrot",price_desc:"￥299.00"},
+		//			{src:"../img/c7a7883bcdc43d54f08449ecdadbce91.jpg",first_word:"小黄鸭嘎嘎 Yellow Duck",price_desc:"￥299.00"}
+		//			],
+		//			container:$("#con_left_sceond_show"),
+		//		})
+	</script>
+
+</html>

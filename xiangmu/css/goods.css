@@ -1,0 +1,104 @@
+img:hover{
+	cursor: pointer;
+}
+.top_white {
+	width: 1150px;
+	margin: 0px auto;
+	overflow: hidden;
+	height: 46px;
+	line-height: 46px;
+	border-bottom: 1px solid #e2e5e9;
+	margin-bottom: 25px;
+}
+#main_con {
+	width: 1150px;
+	clear: both;
+	margin: 0px auto 0 auto;
+	background: #fff;
+	height: 1000px;
+}
+#con_left{
+	float: left;
+	width: 502px;
+	position: relative;
+	}
+#proto_img{
+	background: url(../img/big1.jpg) no-repeat;
+	width: 500px;
+	height: 500px;
+	float: left;
+	overflow: hidden;
+}
+#move_img{
+	position: absolute;
+
+	width: 312px;
+	height: 312px;
+	background: #b3d5ff;
+	opacity: .5;
+	cursor: move;
+	line-height: 1;
+	z-index: 10;
+	overflow: hidden;
+	display: none;
+}
+#big_img{
+	overflow: hidden;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	left: 510px;
+	display: none;
+	border:1px solid #666 ;
+
+	background-size:cover ;
+}
+#big_img img{
+	position: absolute;
+	top:0;
+	left:0px;
+}
+#show_many_img{
+	margin-top:10px ;
+	position: relative;
+	height: 120px;
+	width: 502px;
+	float: left;
+	overflow: hidden;
+}
+#show_many_img ul{
+	width: 1500px;
+	position: absolute;
+	
+}
+#show_many_img ul li{
+	float: left;
+	margin: 2px 5px;
+	height: 118px;
+	background: #f3eeeb;
+
+}
+#show_many_img ul li img{
+	float: left;
+	padding-top: 6px;
+	max-width: 107px;
+    max-height: 107px;
+    width: 107px;
+    height: 107px;
+    border: 1px solid #c9c3c3;
+}
+#show_many_img ul li img:hover{
+	background: #d7c4b6;
+}
+
+#big_big{
+	width: 750px;
+	height: 750px;
+	background: url(../img/big1.jpg) no-repeat;
+	background-size: cover;
+	position: absolute;
+	top:0;
+	left:0px;
+}
+
+
